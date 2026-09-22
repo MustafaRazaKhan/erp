@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  /* =========================
+     ERP COLOR SYSTEM
+     ========================= */
+
+  /* Main website background */
+  --background: #f8fafc;
+
+  /* Cards, forms, tables */
+  --surface: #ffffff;
+
+  /* Main brand color */
+  --primary: #1e3a5f;
+
+  /* Primary hover */
+  --primary-hover: #16324f;
+
+  /* Secondary / action blue */
+  --secondary: #2563eb;
+
+  /* Main text */
+  --foreground: #0f172a;
+
+  /* Secondary text */
+  --muted: #64748b;
+
+  /* Borders */
+  --border: #e2e8f0;
+
+  /* Status colors */
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #d97706;
+
+  /* Light primary background */
+  --primary-light: #eff6ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+}
