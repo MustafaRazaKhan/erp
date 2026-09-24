@@ -14,8 +14,8 @@ export default function Topbar() {
   const { theme, handleThemeToggle } = useTheme();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur">
-      <div className="flex min-h-[64px] items-center justify-between px-3 py-2.5 sm:px-5 lg:px-6">
+    <header className=" w-full border-b border-slate-200  backdrop-blur">
+      <div className="flex items-center justify-between px-3 h-17 sm:px-5 lg:px-6">
         {/* =====================================================
             LEFT SIDE
         ====================================================== */}

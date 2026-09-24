@@ -31,15 +31,15 @@ const Sidebar = ({ menuData }: SidebarProps) => {
         }
         relative shrink-0 overflow-hidden
         border-r border-slate-200
-        bg-white
+        
         transition-all duration-300
       `}
     >
-      <div className="flex h-full min-h-0 flex-col">
+      <div className="flex  flex-col">
         {/* =====================================================
             BRAND
         ====================================================== */}
-        <div className="border-b border-slate-200 bg-white px-3 py-4">
+        <div className="border-b border-slate-200  px-3 h-17">
           <div className="flex items-center gap-2.5">
             {/* School Logo */}
             <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
@@ -59,23 +59,6 @@ const Sidebar = ({ menuData }: SidebarProps) => {
               <p className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">
                 School ERP
               </p>
-            </div>
-          </div>
-
-          {/* Current Academic Year */}
-          <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-2">
-            <div className="flex items-center justify-between gap-2">
-              <div className="min-w-0">
-                <p className="text-[9px] font-medium uppercase tracking-wider text-slate-400">
-                  Academic Year
-                </p>
-
-                <p className="mt-0.5 text-[11px] font-semibold text-slate-700">
-                  2026 - 27
-                </p>
-              </div>
-
-              <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
             </div>
           </div>
         </div>
