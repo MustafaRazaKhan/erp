@@ -54,7 +54,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-3">
             {/* School Logo */}
             <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#1e3a5f] text-sm font-bold text-white shadow-sm">
-              KPS
+              <img src="/hero.jpg" alt="" />
             </div>
 
             <div className="leading-tight">

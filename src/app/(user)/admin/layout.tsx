@@ -56,8 +56,8 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 
     {
       id: 1,
-      name: "Enquiries",
-      link: "/admin/enquiry/enquiry-list",
+      name: "Enquiries List",
+      link: "/admin/enquiries/list",
       icon: <FaEnvelopeOpenText size={18} />,
     },
 
@@ -68,14 +68,14 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     {
       id: 2,
       name: "Add School",
-      link: "/admin/school/school-create",
+      link: "/admin/school/create",
       icon: <FaBuilding size={18} />,
     },
 
     {
       id: 3,
       name: "School List",
-      link: "/admin/school/school-list",
+      link: "/admin/school/list",
       icon: <LuSchool size={19} />,
     },
 
@@ -86,14 +86,14 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     {
       id: 4,
       name: "Add Class",
-      link: "/admin/class/class-create",
+      link: "/admin/classes/class-create",
       icon: <MdClass size={19} />,
     },
 
     {
       id: 5,
       name: "Class List",
-      link: "/admin/class/class-list",
+      link: "/admin/classes/list",
       icon: <MdSchool size={19} />,
     },
 
@@ -111,7 +111,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     {
       id: 7,
       name: "User List",
-      link: "/admin/user/user-list",
+      link: "/admin/user/list",
       icon: <PiUserListBold size={19} />,
     },
 
@@ -154,7 +154,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     {
       id: 12,
       name: "Student List",
-      link: "/admin/student/student-list",
+      link: "/admin/students/list",
       icon: <PiStudentBold size={20} />,
     },
 
