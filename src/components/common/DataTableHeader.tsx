@@ -2,18 +2,12 @@ import React from "react";
 
 const DataTableHeader = ({ columns }: any) => {
   return (
-    <thead className="bg-slate-50 dark:bg-slate-900/60 sticky top-0 z-10">
-      <tr className="border-b border-slate-200 dark:border-slate-700">
-        {columns.map((column: any, index: number) => (
+    <thead>
+      <tr className="border-b border-slate-100 bg-slate-50/70">
+        {columns?.map((column: any, index: number) => (
           <th
             key={index}
-            className={`
-              px-6 py-4
-              text-left text-xs font-semibold uppercase tracking-wider
-              text-slate-500 dark:text-slate-400
-              whitespace-nowrap
-              ${column.className || ""}
-            `}
+            className="px-5 py-3 text-left text-[10px] font-bold uppercase tracking-wider text-slate-400"
           >
             {column.label}
           </th>

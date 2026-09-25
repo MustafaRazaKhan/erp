@@ -7,68 +7,82 @@ import {
   setLoading,
   setSuccess,
   enquiryReset,
+  setEnquiries,
 } from "../store/enquiry.slice";
 
-import { createEnquiry } from "../services/enquiry.service";
+import { createEnquiry, getEnquiries } from "../services/enquiry.service";
 
 import type { EnquiryObj } from "../store/enquiry.types";
 import { showToastSuccess } from "@/utils/Toast";
+import { useState } from "react";
 
 const useEnquiry = () => {
   const dispatch = useAppDispatch();
 
-  // -----------------------------------------
-  // GET ENQUIRY STATE
-  // -----------------------------------------
+  const {
+    enquiryObj,
+    enquiryList,
+    loading,
+    totalEnquiries,
+    currentPage,
+    totalPages,
+    limit,
+    hasNextPage,
+    hasPrevPage,
+  } = useAppSelector((state: any) => state.enquiry);
 
-  const { enquiryObj, loading } = useAppSelector((state: any) => state.enquiry);
+  const [search, setSearch] = useState("");
 
-  // -----------------------------------------
-  // HANDLE INPUT CHANGE
-  // -----------------------------------------
-
-  const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    dispatch(
-      handleChange({
-        name: e.target.name as keyof EnquiryObj,
-        value: e.target.value,
-      }),
-    );
-  };
-
-  // -----------------------------------------
-  // SUBMIT FORM
-  // -----------------------------------------
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const getAllEnquiries = async (page = 1, searchValue = search) => {
     try {
       dispatch(setLoading());
 
-      const data: any = await createEnquiry(enquiryObj);
-      if (data.success) {
-        dispatch(enquiryReset());
-        dispatch(setSuccess());
-        showToastSuccess(data.message);
-      }
-      // console.log(data, "data");
-    } catch (error) {
-      console.error("Create enquiry error:", error);
+      const response = await getEnquiries(page, 5, searchValue);
+
+      dispatch(
+        setEnquiries({
+          data: response.data,
+          pagination: response.pagination,
+        }),
+      );
 
       dispatch(setSuccess());
+    } catch (error) {
+      console.error("Get enquiries error:", error);
 
-      alert("Something went wrong. Please try again.");
+      dispatch(setSuccess());
     }
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    setSearch(value);
+
+    getAllEnquiries(1, value);
+  };
+
+  const handlePageChange = (page: number) => {
+    getAllEnquiries(page, search);
   };
 
   return {
     enquiryObj,
+    enquiryList,
     loading,
-    onChange,
-    handleSubmit,
+
+    totalEnquiries,
+    currentPage,
+    totalPages,
+    limit,
+    hasNextPage,
+    hasPrevPage,
+
+    search,
+
+    handleSearch,
+    handlePageChange,
+    getAllEnquiries,
   };
 };
 

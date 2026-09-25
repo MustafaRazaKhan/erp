@@ -13,6 +13,11 @@ export type EnquiryState = {
   loading: boolean;
   enquiryObj: EnquiryObj;
   enquiryList: EnquiryObj[];
-  totalEnquiries?: number;
-  error?: string;
+  totalEnquiries: number;
+
+  currentPage: number;
+  totalPages: number;
+  limit: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
 };

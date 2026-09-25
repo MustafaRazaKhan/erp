@@ -1,9 +1,11 @@
-import React from "react";
+"use client";
 
-const DataTable = ({ children }: { children: React.ReactNode }) => {
+const DataTable = ({ children }: any) => {
   return (
-    <div className="overflow-x-auto text-center shadow p-1">
-      <table className="min-w-full text-sm  text-center">{children}</table>
+    <div className=" rounded-xl border border-slate-200">
+      <div className="overflow-x-auto">
+        <table className="w-full">{children}</table>
+      </div>
     </div>
   );
 };

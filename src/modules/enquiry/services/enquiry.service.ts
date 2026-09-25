@@ -13,8 +13,14 @@ export const createEnquiry = async (data: EnquiryObj): Promise<EnquiryObj> => {
 // GET ENQUIRY LIST
 // =====================================
 
-export const getEnquiries = async (): Promise<EnquiryObj[]> => {
-  return apiGet<EnquiryObj[]>("/api/enquiries");
+export const getEnquiries = async (
+  page: number,
+  limit: number,
+  search: string = "",
+) => {
+  return apiGet<any>(
+    `/api/enquiries?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`,
+  );
 };
 
 // =====================================

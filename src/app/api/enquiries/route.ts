@@ -62,21 +62,92 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    // ============================================================
+    // CONNECT DATABASE
+    // ============================================================
     await connectDB();
 
-    const enquiries = await Enquiry.find().sort({ createdAt: -1 }).lean();
+    // ============================================================
+    // GET QUERY PARAMETERS
+    // ============================================================
+    const { searchParams } = new URL(req.url);
 
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Enquiries fetched successfully",
-        data: enquiries,
-        count: enquiries.length,
-      },
-      { status: 200 },
+    const page = Math.max(Number(searchParams.get("page")) || 1, 1);
+
+    const limit = Math.min(
+      Math.max(Number(searchParams.get("limit")) || 10, 1),
+      100,
     );
+
+    const search = searchParams.get("search")?.trim() || "";
+
+    // ============================================================
+    // BUILD SEARCH QUERY
+    // ============================================================
+    const query: Record<string, any> = {};
+
+    if (search) {
+      query.$or = [
+        {
+          name: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          email: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          phone: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          subject: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+      ];
+    }
+
+    // ============================================================
+    // PAGINATE
+    // ============================================================
+    const result = await Enquiry.paginate(query, {
+      page,
+      limit,
+
+      sort: {
+        createdAt: -1,
+      },
+
+      lean: true,
+    });
+
+    // ============================================================
+    // RESPONSE
+    // ============================================================
+    return NextResponse.json({
+      success: true,
+
+      data: result.docs,
+
+      pagination: {
+        total: result.totalDocs,
+        page: result.page,
+        limit: result.limit,
+        totalPages: result.totalPages,
+        hasNextPage: result.hasNextPage,
+        hasPrevPage: result.hasPrevPage,
+      },
+    });
   } catch (error) {
     console.error("GET ENQUIRIES ERROR:", error);
 
@@ -84,8 +155,11 @@ export async function GET() {
       {
         success: false,
         message: "Something went wrong",
+        error: error instanceof Error ? error.message : String(error),
       },
-      { status: 500 },
+      {
+        status: 500,
+      },
     );
   }
 }

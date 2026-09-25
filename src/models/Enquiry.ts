@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const EnquirySchema = new mongoose.Schema(
   {
@@ -48,7 +49,10 @@ const EnquirySchema = new mongoose.Schema(
   },
 );
 
+EnquirySchema.plugin(mongoosePaginate);
+
 const Enquiry =
-  mongoose.models.Enquiry || mongoose.model("Enquiry", EnquirySchema);
+  (mongoose.models.Enquiry as mongoose.PaginateModel<any>) ||
+  mongoose.model<any, mongoose.PaginateModel<any>>("Enquiry", EnquirySchema);
 
 export default Enquiry;

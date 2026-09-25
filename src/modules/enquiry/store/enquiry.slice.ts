@@ -18,6 +18,12 @@ const initialState: EnquiryState = {
   enquiryList: [],
 
   totalEnquiries: 0,
+
+  currentPage: 1,
+  totalPages: 1,
+  limit: 10,
+  hasNextPage: false,
+  hasPrevPage: false,
 };
 
 const enquirySlice = createSlice({
@@ -48,15 +54,20 @@ const enquirySlice = createSlice({
     },
 
     // SET_ENQUIRIES
-    setEnquiries: (
-      state,
-      action: PayloadAction<{
-        data: EnquiryObj[];
-        totalEnquiries: number;
-      }>,
-    ) => {
+    setEnquiries: (state, action: PayloadAction<any>) => {
       state.enquiryList = action.payload.data;
-      state.totalEnquiries = action.payload.totalEnquiries;
+
+      state.totalEnquiries = action.payload.pagination.total;
+
+      state.currentPage = action.payload.pagination.page;
+
+      state.totalPages = action.payload.pagination.totalPages;
+
+      state.limit = action.payload.pagination.limit;
+
+      state.hasNextPage = action.payload.pagination.hasNextPage;
+
+      state.hasPrevPage = action.payload.pagination.hasPrevPage;
     },
 
     // ENQUIRY_RESET

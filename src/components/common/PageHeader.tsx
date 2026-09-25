@@ -1,40 +1,19 @@
 "use client";
-import Link from "next/link";
-import { FaArrowUp } from "react-icons/fa";
 
 const PageHeader = ({ heading }: any) => {
   return (
-    <div className="mb-6 px-4 md:px-6">
-      {/* Top Row */}
-      <div className="flex items-center justify-between flex-wrap gap-4">
-        {/* LEFT */}
-        <div className="flex items-start gap-3">
-          {/* Icon */}
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-blue-800 text-white text-2xl">
-            {heading.icon || <FaArrowUp size={14} />}
-          </div>
+    <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
+          {heading.title}
+        </p>
 
-          {/* Text */}
-          <div className="leading-tight">
-            <h2 className="text-xl font-semibold text-slate-900 tracking-tight">
-              {heading.name}
-            </h2>
-            <p className="text-sm text-slate-500 mt-1">{heading.subHeading}</p>
-          </div>
-        </div>
+        <h1 className="mt-1 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+          {heading.subTitle}
+        </h1>
 
-        {/* RIGHT */}
-        <Link
-          href={heading.href}
-          className="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-100 hover:text-slate-900 active:scale-95"
-        >
-          {heading.icon || <FaArrowUp size={12} />}
-          {heading.btnHeading}
-        </Link>
+        <p className="mt-1 text-sm text-slate-500">{heading.desc}</p>
       </div>
-
-      {/* Divider (very SaaS touch) */}
-      {/* <div className="mt-4 h-px w-full bg-slate-200/70" /> */}
     </div>
   );
 };
