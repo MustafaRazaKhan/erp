@@ -29,6 +29,7 @@ export const apiGet = async <T>(url: string): Promise<T> => {
 
 export const apiPost = async <T>(url: string, data: unknown): Promise<T> => {
   try {
+    // console.log(data);
     // Send POST request
     const response = await fetch(url, {
       method: "POST",

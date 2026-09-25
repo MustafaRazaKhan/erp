@@ -12,6 +12,7 @@ import {
 import { createEnquiry } from "../services/enquiry.service";
 
 import type { EnquiryObj } from "../store/enquiry.types";
+import { showToastSuccess } from "@/utils/Toast";
 
 const useEnquiry = () => {
   const dispatch = useAppDispatch();
@@ -47,12 +48,13 @@ const useEnquiry = () => {
     try {
       dispatch(setLoading());
 
-      await createEnquiry(enquiryObj);
-
-      dispatch(enquiryReset());
-      dispatch(setSuccess());
-
-      alert("Enquiry submitted successfully");
+      const data: any = await createEnquiry(enquiryObj);
+      if (data.success) {
+        dispatch(enquiryReset());
+        dispatch(setSuccess());
+        showToastSuccess(data.message);
+      }
+      // console.log(data, "data");
     } catch (error) {
       console.error("Create enquiry error:", error);
 

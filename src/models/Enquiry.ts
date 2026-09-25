@@ -7,26 +7,36 @@ const EnquirySchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+
     email: {
       type: String,
       required: true,
       trim: true,
+      lowercase: true,
     },
+
     phone: {
       type: String,
+      trim: true,
     },
+
     subject: {
       type: String,
       required: true,
+      trim: true,
     },
+
     comment: {
       type: String,
+      trim: true,
     },
+
     message: {
       type: String,
       required: true,
       trim: true,
     },
+
     status: {
       type: String,
       default: "pending",
@@ -34,11 +44,10 @@ const EnquirySchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // adds createdAt & updatedAt
+    timestamps: true,
   },
 );
 
-// ✅ Prevent model overwrite in Next.js
 const Enquiry =
   mongoose.models.Enquiry || mongoose.model("Enquiry", EnquirySchema);
 

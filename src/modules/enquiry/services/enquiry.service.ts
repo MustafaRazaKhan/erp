@@ -6,7 +6,7 @@ import { EnquiryObj } from "../store/enquiry.types";
 // =====================================
 
 export const createEnquiry = async (data: EnquiryObj): Promise<EnquiryObj> => {
-  return apiPost<EnquiryObj>("/api/admin/enquiries", data);
+  return apiPost<EnquiryObj>("/api/enquiries", data);
 };
 
 // =====================================
@@ -14,7 +14,7 @@ export const createEnquiry = async (data: EnquiryObj): Promise<EnquiryObj> => {
 // =====================================
 
 export const getEnquiries = async (): Promise<EnquiryObj[]> => {
-  return apiGet<EnquiryObj[]>("/api/admin/enquiries");
+  return apiGet<EnquiryObj[]>("/api/enquiries");
 };
 
 // =====================================

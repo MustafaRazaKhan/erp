@@ -1,284 +1,215 @@
 "use client";
 
+import Footer from "@/components/layouts/Footer";
+import Navbar from "@/components/layouts/Navbar";
 import React, { useState } from "react";
-import Link from "next/link";
-import {
-  FiMail,
-  FiLock,
-  FiEye,
-  FiEyeOff,
-  FiBookOpen,
-  FiShield,
-  FiUsers,
-} from "react-icons/fi";
 
-import Navbar from "@/components/home/Navbar";
-import Footer from "@/components/home/Footer";
-import useAuth from "@/store/user/admin/context/auth.context";
+import { FaEnvelope, FaLock, FaSchool, FaSignInAlt } from "react-icons/fa";
 
-export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
+const LoginPage = () => {
+  const [form, setForm] = useState({
+    role: "admin",
+    email: "",
+    password: "",
+  });
 
-  const { state, handleLoginChange, handleLoginSubmit } = useAuth();
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(form);
+  };
 
   return (
     <>
       <Navbar />
+      <main className="min-h-screen bg-slate-50 px-6 py-10">
+        <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-5xl items-center justify-center">
+          <div className="grid w-full overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm lg:grid-cols-2">
+            {/* LEFT SIDE */}
+            <div className="bg-blue-50 p-8 sm:p-10 lg:p-12">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-[#1e3a5f] shadow-sm">
+                <FaSchool />
+              </div>
 
-      <main className="min-h-screen bg-[#fffdf7]">
-        {/* =====================================================
-            LOGIN SECTION
-        ====================================================== */}
+              <p className="mt-7 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
+                Krishna Public School
+              </p>
 
-        <section className="relative overflow-hidden border-b border-[#eadfbe]">
-          {/* Soft Background */}
-          <div className="absolute inset-0 bg-[#fffaf0]" />
+              <h1 className="mt-3 text-3xl font-bold leading-tight text-slate-900">
+                Welcome back.
+                <br />
+                Manage everything
+                <br />
+                in one place.
+              </h1>
 
-          <div className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-[#f7df91]/25 blur-3xl" />
+              <p className="mt-5 max-w-md text-sm leading-7 text-slate-500">
+                Access the school management system to manage students,
+                teachers, classes, fees and other school activities.
+              </p>
 
-          <div className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-[#f3e4b5]/30 blur-3xl" />
+              <div className="mt-8 space-y-4">
+                <LoginFeature text="Manage students and teachers" />
 
-          <div className="relative mx-auto grid min-h-[720px] max-w-7xl items-center gap-10 px-6 py-12 lg:grid-cols-2 lg:px-8">
-            {/* =================================================
-                LEFT CONTENT
-            ================================================== */}
+                <LoginFeature text="Manage classes and academics" />
 
-            <div className="hidden lg:block">
-              <div className="max-w-xl">
-                {/* Small Badge */}
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#e4d39f] bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-[0.15em] text-[#9d7825] shadow-sm backdrop-blur">
-                  <span className="h-2 w-2 rounded-full bg-[#c59a32]" />
-                  School ERP
-                </div>
+                <LoginFeature text="Manage fees and payments" />
 
-                <h1 className="mt-7 text-5xl font-bold leading-[1.12] tracking-tight text-stone-800">
-                  Everything your school needs,
-                  <span className="block text-[#b58a28]">in one place.</span>
-                </h1>
+                <LoginFeature text="Manage school operations" />
+              </div>
+            </div>
 
-                <p className="mt-6 max-w-lg text-base leading-7 text-stone-500">
-                  Access your school management portal and stay connected with
-                  students, academics, attendance and everyday school
-                  operations.
+            {/* RIGHT SIDE */}
+            <div className="p-8 sm:p-10 lg:p-12">
+              <div className="mb-8">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
+                  Account Login
                 </p>
 
-                {/* Image */}
-                <div className="relative mt-10 overflow-hidden rounded-3xl border border-[#e9dfc5] bg-white p-2 shadow-[0_20px_50px_rgba(100,80,30,0.08)]">
-                  <div className="relative overflow-hidden rounded-2xl bg-[#fff7dc]">
-                    <img
-                      src="https://imgs.search.brave.com/YT6m4z3ctt_k1NQvhh6aGFHRFITafrVML0j5H7OMVlw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly92YXN5/ZXJwLmNvbS9hc3Nl/dHMtbmV3L2ltYWdl/cy9yZXRpYWwtZmVh/dHVyZXMtd2l0aC1k/ZXNrdG9wLndlYnA"
-                      alt="School ERP Dashboard"
-                      className="h-[270px] w-full object-cover object-center opacity-90"
-                    />
+                <h2 className="mt-2 text-2xl font-bold text-slate-900">
+                  Sign in to your account
+                </h2>
 
-                    {/* Image overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#fff7dc]/90 via-transparent to-transparent" />
-
-                    {/* Image Caption */}
-                    <div className="absolute bottom-5 left-5 right-5">
-                      <div className="inline-flex items-center gap-2 rounded-xl border border-white/60 bg-white/80 px-4 py-3 shadow-sm backdrop-blur">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#fff1c4] text-[#b58a28]">
-                          <FiBookOpen size={16} />
-                        </div>
-
-                        <div>
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-stone-400">
-                            Krishna Public School
-                          </p>
-
-                          <p className="text-sm font-semibold text-stone-700">
-                            School Management Portal
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Features */}
-                <div className="mt-7 grid grid-cols-3 gap-3">
-                  <FeatureCard
-                    icon={<FiUsers />}
-                    title="Students"
-                    desc="Student records"
-                  />
-
-                  <FeatureCard
-                    icon={<FiBookOpen />}
-                    title="Academics"
-                    desc="School activities"
-                  />
-
-                  <FeatureCard
-                    icon={<FiShield />}
-                    title="Secure"
-                    desc="Protected access"
-                  />
-                </div>
+                <p className="mt-2 text-sm text-slate-500">
+                  Enter your details to continue.
+                </p>
               </div>
-            </div>
 
-            {/* =================================================
-                LOGIN CARD
-            ================================================== */}
+              <form onSubmit={handleSubmit}>
+                {/* ROLE */}
+                <div>
+                  <label
+                    htmlFor="role"
+                    className="mb-2 block text-sm font-medium text-slate-900"
+                  >
+                    Login As
+                  </label>
 
-            <div className="flex justify-center lg:justify-end">
-              <div className="w-full max-w-md">
-                <div className="rounded-3xl border border-[#e8ddbf] bg-white p-7 shadow-[0_25px_70px_rgba(100,80,30,0.09)] sm:p-9">
-                  {/* Header */}
-                  <div className="mb-8">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#fff4cf] text-[#b58a28]">
-                      <FiBookOpen size={21} />
-                    </div>
+                  <select
+                    id="role"
+                    name="role"
+                    value={form.role}
+                    onChange={handleChange}
+                    className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                  >
+                    <option value="admin">Admin</option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="parent">Parent</option>
+                  </select>
+                </div>
 
-                    <h2 className="mt-6 text-2xl font-bold tracking-tight text-stone-800">
-                      Welcome Back
-                    </h2>
-
-                    <p className="mt-2 text-sm leading-6 text-stone-400">
-                      Sign in to access your school portal.
-                    </p>
-                  </div>
-
-                  <form onSubmit={handleLoginSubmit} className="space-y-5">
-                    {/* ROLE */}
-                    <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-stone-600">
-                        Select Role
-                      </label>
-
-                      <select
-                        name="role"
-                        value={state.loginObj.role}
-                        onChange={handleLoginChange}
-                        required
-                        className="mt-2 w-full rounded-xl border border-[#e9dfc5] bg-[#fffdf7] px-4 py-3 text-sm text-stone-600 outline-none transition focus:border-[#d5b85f] focus:bg-white focus:ring-2 focus:ring-[#f5e9bd]"
-                      >
-                        <option value="">Select Role For Login</option>
-
-                        <option value="admin">Admin</option>
-
-                        <option value="teacher">Teacher</option>
-
-                        <option value="student">Student</option>
-
-                        <option value="class_teacher">Class Teacher</option>
-                      </select>
-                    </div>
-
-                    {/* EMAIL */}
-                    <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-stone-600">
-                        Email Address
-                      </label>
-
-                      <div className="relative mt-2">
-                        <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" />
-
-                        <input
-                          type="email"
-                          name="email"
-                          value={state.loginObj.email}
-                          onChange={handleLoginChange}
-                          placeholder="Enter your email"
-                          required
-                          className="w-full rounded-xl border border-[#e9dfc5] bg-[#fffdf7] py-3.5 pl-11 pr-4 text-sm text-stone-600 outline-none transition placeholder:text-stone-400 focus:border-[#d5b85f] focus:bg-white focus:ring-2 focus:ring-[#f5e9bd]"
-                        />
-                      </div>
-                    </div>
-
-                    {/* PASSWORD */}
-                    <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-stone-600">
-                        Password
-                      </label>
-
-                      <div className="relative mt-2">
-                        <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" />
-
-                        <input
-                          type={showPassword ? "text" : "password"}
-                          name="password"
-                          value={state.loginObj.password}
-                          onChange={handleLoginChange}
-                          placeholder="Enter your password"
-                          required
-                          className="w-full rounded-xl border border-[#e9dfc5] bg-[#fffdf7] py-3.5 pl-11 pr-12 text-sm text-stone-600 outline-none transition placeholder:text-stone-400 focus:border-[#d5b85f] focus:bg-white focus:ring-2 focus:ring-[#f5e9bd]"
-                        />
-
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          aria-label={
-                            showPassword ? "Hide password" : "Show password"
-                          }
-                          className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 transition hover:text-[#b58a28]"
-                        >
-                          {showPassword ? <FiEyeOff /> : <FiEye />}
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* FORGOT PASSWORD */}
-                    <div className="flex justify-end pt-1">
-                      <Link
-                        href="/contact"
-                        className="text-xs font-medium text-[#a17b25] transition hover:text-[#80601b]"
-                      >
-                        Forgot Password? Contact Admin
-                      </Link>
-                    </div>
-
-                    {/* LOGIN BUTTON */}
-                    <button
-                      type="submit"
-                      className="w-full rounded-xl bg-[#c59a32] py-3.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:bg-[#b58b27] hover:shadow-md active:scale-[0.99]"
+                {/* EMAIL + PASSWORD */}
+                <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  {/* EMAIL */}
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="mb-2 block text-sm font-medium text-slate-900"
                     >
-                      Sign In
-                    </button>
-                  </form>
+                      Email Address
+                    </label>
 
-                  {/* Bottom Note */}
-                  <div className="mt-7 border-t border-[#eee6d2] pt-6 text-center">
-                    <p className="text-[11px] leading-5 text-stone-400">
-                      Your account provides access according to your assigned
-                      school role and permissions.
-                    </p>
+                    <div className="flex items-center rounded-xl border border-slate-200 bg-white px-3 transition focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100">
+                      <FaEnvelope
+                        size={14}
+                        className="shrink-0 text-slate-400"
+                      />
+
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        placeholder="Enter email"
+                        required
+                        className="w-full bg-transparent px-3 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400"
+                      />
+                    </div>
+                  </div>
+
+                  {/* PASSWORD */}
+                  <div>
+                    <label
+                      htmlFor="password"
+                      className="mb-2 block text-sm font-medium text-slate-900"
+                    >
+                      Password
+                    </label>
+
+                    <div className="flex items-center rounded-xl border border-slate-200 bg-white px-3 transition focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100">
+                      <FaLock size={14} className="shrink-0 text-slate-400" />
+
+                      <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={form.password}
+                        onChange={handleChange}
+                        placeholder="Enter password"
+                        required
+                        className="w-full bg-transparent px-3 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+
+                {/* FORGOT PASSWORD */}
+                <div className="mt-4 text-right">
+                  <button
+                    type="button"
+                    className="text-xs font-medium text-blue-600 hover:text-blue-700"
+                  >
+                    Forgot password?
+                  </button>
+                </div>
+
+                {/* LOGIN BUTTON */}
+                <button
+                  type="submit"
+                  className="group mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#1e3a5f] px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:bg-[#16324f] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-200 focus:ring-offset-2"
+                >
+                  <span>Sign In</span>
+
+                  <FaSignInAlt
+                    size={13}
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </button>
+              </form>
+
+              <p className="mt-6 text-center text-xs text-slate-400">
+                Krishna Public School Management System
+              </p>
             </div>
           </div>
-        </section>
+        </div>
       </main>
-
       <Footer />
     </>
   );
-}
+};
 
-/* =========================================================
-   FEATURE CARD
-========================================================= */
+export default LoginPage;
 
-function FeatureCard({
-  icon,
-  title,
-  desc,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-}) {
+function LoginFeature({ text }: { text: string }) {
   return (
-    <div className="rounded-2xl border border-[#e9dfc5] bg-white/80 p-4 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md">
-      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#fff4cf] text-[#b58a28]">
-        {icon}
+    <div className="flex items-center gap-3">
+      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[#1e3a5f] shadow-sm">
+        ✓
       </div>
 
-      <h3 className="mt-3 text-xs font-bold text-stone-700">{title}</h3>
-
-      <p className="mt-1 text-[10px] text-stone-400">{desc}</p>
+      <p className="text-sm font-medium text-slate-900">{text}</p>
     </div>
   );
 }

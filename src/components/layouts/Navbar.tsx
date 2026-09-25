@@ -11,13 +11,10 @@ const navLinks = [
     href: "/",
   },
   {
-    name: "About School",
+    name: "About",
     href: "/about",
   },
-  {
-    name: "Admissions",
-    href: "/admissions",
-  },
+
   {
     name: "Enquiry",
     href: "/enquiry",
