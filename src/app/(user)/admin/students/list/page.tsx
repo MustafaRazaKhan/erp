@@ -629,7 +629,7 @@ function StudentTableRow({ student }: { student: Student }) {
           <div className="min-w-0">
             <Link
               href={`/admin/students/${student._id}`}
-              className="block truncate text-sm font-semibold text-slate-900 hover:text-[#1e3a5f]"
+              className="block  text-sm font-semibold text-slate-900 hover:text-[#1e3a5f]"
             >
               {student.name}
             </Link>
@@ -773,7 +773,7 @@ function StudentMobileCard({ student }: { student: Student }) {
           <div className="min-w-0">
             <Link
               href={`/admin/students/${student._id}`}
-              className="block truncate text-sm font-semibold text-slate-900"
+              className="block  text-sm font-semibold text-slate-900"
             >
               {student.name}
             </Link>
@@ -905,9 +905,7 @@ function MobileInfo({ label, value }: { label: string; value: string }) {
         {label}
       </p>
 
-      <p className="mt-1 truncate text-sm font-medium text-slate-800">
-        {value}
-      </p>
+      <p className="mt-1  text-sm font-medium text-slate-800">{value}</p>
     </div>
   );
 }

@@ -39,8 +39,8 @@ const Sidebar = ({ menuData }: SidebarProps) => {
         {/* =====================================================
             BRAND
         ====================================================== */}
-        <div className="border-b border-slate-200  px-3 h-17">
-          <div className="flex items-center gap-2.5">
+        <div className="border-b border-slate-200  px-3 h-17 flex items-center justify-center">
+          <div className="flex items-center gap-2.5 ">
             {/* School Logo */}
             <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
               <img
@@ -52,7 +52,7 @@ const Sidebar = ({ menuData }: SidebarProps) => {
 
             {/* School Name */}
             <div className="min-w-0 leading-tight">
-              <h2 className="truncate text-[13px] font-bold text-slate-900">
+              <h2 className=" text-[13px] font-bold text-slate-900">
                 Krishna Public School
               </h2>
 
@@ -120,7 +120,7 @@ const Sidebar = ({ menuData }: SidebarProps) => {
                   </span>
 
                   {/* Label */}
-                  <span className="min-w-0 flex-1 truncate">{item.name}</span>
+                  <span className="min-w-0 flex-1 ">{item.name}</span>
 
                   {/* Active Dot */}
                   {isActive && (

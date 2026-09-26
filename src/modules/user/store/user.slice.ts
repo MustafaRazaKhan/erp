@@ -7,8 +7,7 @@ const initialState: UserState = {
 
   userObj: {
     role: "",
-    name: "",
-    email: "",
+    identifier: "",
     phone: "",
     password: "",
   },
@@ -20,6 +19,13 @@ const initialState: UserState = {
   },
 
   userList: [],
+
+  totalUsers: 0,
+  currentPage: 1,
+  totalPages: 1,
+  limit: 10,
+  hasNextPage: false,
+  hasPrevPage: false,
 };
 
 const userSlice = createSlice({
@@ -76,9 +82,33 @@ const userSlice = createSlice({
     // SET USERS
     // -----------------------------------------
 
-    setUsers: (state, action: PayloadAction<any[]>) => {
-      state.userList = action.payload;
-      state.loading = false;
+    setUsers: (
+      state,
+      action: PayloadAction<{
+        data: UserState["userList"];
+        pagination: {
+          total: number;
+          page: number;
+          totalPages: number;
+          limit: number;
+          hasNextPage: boolean;
+          hasPrevPage: boolean;
+        };
+      }>,
+    ) => {
+      state.userList = action.payload.data;
+
+      state.totalUsers = action.payload.pagination.total;
+
+      state.currentPage = action.payload.pagination.page;
+
+      state.totalPages = action.payload.pagination.totalPages;
+
+      state.limit = action.payload.pagination.limit;
+
+      state.hasNextPage = action.payload.pagination.hasNextPage;
+
+      state.hasPrevPage = action.payload.pagination.hasPrevPage;
     },
   },
 });

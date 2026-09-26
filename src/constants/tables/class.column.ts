@@ -1,7 +1,7 @@
 const classColumns = [
-  { label: "Class", key: "name" },
-  { label: "Section", key: "section" },
-  { label: "Room", key: "no" },
+  { label: "Class Name", key: "name" },
+  { label: "Section Name", key: "section" },
+  { label: "Room No", key: "no" },
   { label: "Status", key: "isActive" },
   { label: "Actions", key: "actions" },
 ];

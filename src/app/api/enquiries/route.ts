@@ -64,81 +64,35 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    // ============================================================
-    // CONNECT DATABASE
-    // ============================================================
     await connectDB();
 
-    // ============================================================
-    // GET QUERY PARAMETERS
-    // ============================================================
     const { searchParams } = new URL(req.url);
 
-    const page = Math.max(Number(searchParams.get("page")) || 1, 1);
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 10;
+    const search = searchParams.get("search") || "";
 
-    const limit = Math.min(
-      Math.max(Number(searchParams.get("limit")) || 10, 1),
-      100,
-    );
-
-    const search = searchParams.get("search")?.trim() || "";
-
-    // ============================================================
-    // BUILD SEARCH QUERY
-    // ============================================================
-    const query: Record<string, any> = {};
+    const query: any = {};
 
     if (search) {
       query.$or = [
-        {
-          name: {
-            $regex: search,
-            $options: "i",
-          },
-        },
-        {
-          email: {
-            $regex: search,
-            $options: "i",
-          },
-        },
-        {
-          phone: {
-            $regex: search,
-            $options: "i",
-          },
-        },
-        {
-          subject: {
-            $regex: search,
-            $options: "i",
-          },
-        },
+        { name: { $regex: search, $options: "i" } },
+        { email: { $regex: search, $options: "i" } },
+        { phone: { $regex: search, $options: "i" } },
+        { subject: { $regex: search, $options: "i" } },
       ];
     }
 
-    // ============================================================
-    // PAGINATE
-    // ============================================================
-    const result = await Enquiry.paginate(query, {
+    const result = await (Enquiry as any).paginate(query, {
       page,
       limit,
-
-      sort: {
-        createdAt: -1,
-      },
-
+      sort: { createdAt: -1 },
       lean: true,
     });
 
-    // ============================================================
-    // RESPONSE
-    // ============================================================
     return NextResponse.json({
       success: true,
-
       data: result.docs,
-
       pagination: {
         total: result.totalDocs,
         page: result.page,
@@ -148,18 +102,15 @@ export async function GET(req: Request) {
         hasPrevPage: result.hasPrevPage,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("GET ENQUIRIES ERROR:", error);
 
     return NextResponse.json(
       {
         success: false,
-        message: "Something went wrong",
-        error: error instanceof Error ? error.message : String(error),
+        message: error.message || "Something went wrong",
       },
-      {
-        status: 500,
-      },
+      { status: 500 },
     );
   }
 }

@@ -5,7 +5,7 @@ import { apiGet } from "@/utils/api";
 // -----------------------------------------
 
 export const createSchool = async (formData: FormData) => {
-  const response = await fetch("/api/admin/school/school-create", {
+  const response = await fetch("/api/school", {
     method: "POST",
     body: formData,
   });
@@ -18,7 +18,7 @@ export const createSchool = async (formData: FormData) => {
 // -----------------------------------------
 
 export const getSchoolList = async () => {
-  return apiGet("/api/school-list");
+  return apiGet("/api/school");
 };
 
 // -----------------------------------------

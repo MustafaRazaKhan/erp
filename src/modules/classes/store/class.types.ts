@@ -1,8 +1,8 @@
 export type ClassObj = {
   _id?: string;
-  name: string;
-  no: number;
-  section: string;
+  className: string;
+  roomNo: number;
+  sectionName: string;
   // keep your other existing class fields here
 };
 

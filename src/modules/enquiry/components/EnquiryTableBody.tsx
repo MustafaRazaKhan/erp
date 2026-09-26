@@ -32,7 +32,7 @@ const EnquiryTableBody = ({ data }: any) => {
                 </div>
 
                 <div className="min-w-0">
-                  <p className="truncate text-xs font-semibold text-slate-800">
+                  <p className=" text-xs font-semibold text-slate-800">
                     {enquiry.name}
                   </p>
 
@@ -49,7 +49,7 @@ const EnquiryTableBody = ({ data }: any) => {
                 <div className="flex items-center gap-1.5">
                   <FiMail size={11} className="shrink-0 text-slate-400" />
 
-                  <span className="truncate text-[11px] text-slate-600">
+                  <span className=" text-[11px] text-slate-600">
                     {enquiry.email || "-"}
                   </span>
                 </div>
@@ -66,21 +66,21 @@ const EnquiryTableBody = ({ data }: any) => {
 
             {/* Subject */}
             <td className="max-w-[220px] px-5 py-4">
-              <p className="truncate text-xs font-medium text-slate-700">
+              <p className=" text-xs font-medium text-slate-700">
                 {enquiry.subject || "-"}
               </p>
             </td>
 
             {/* Comment */}
             <td className="max-w-[220px] px-5 py-4">
-              <p className="truncate text-xs text-slate-500">
+              <p className=" text-xs text-slate-500">
                 {enquiry.comment || "-"}
               </p>
             </td>
 
             {/* Message */}
             <td className="max-w-[220px] px-5 py-4">
-              <p className="truncate text-xs text-slate-500">
+              <p className=" text-xs text-slate-500">
                 {enquiry.message || "-"}
               </p>
             </td>

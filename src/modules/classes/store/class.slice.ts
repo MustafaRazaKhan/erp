@@ -6,9 +6,9 @@ const initialState: ClassState = {
   loading: false,
 
   classObj: {
-    name: "",
-    no: 0,
-    section: "",
+    className: "",
+    roomNo: 0,
+    sectionName: "",
   },
 
   classList: [],
@@ -17,7 +17,7 @@ const initialState: ClassState = {
 };
 
 const classSlice = createSlice({
-  name: "class",
+  name: "classes",
 
   initialState,
 
@@ -53,9 +53,9 @@ const classSlice = createSlice({
 
     resetClass: (state) => {
       state.classObj = {
-        name: "",
-        no: 0,
-        section: "",
+        className: "",
+        roomNo: 0,
+        sectionName: "",
       };
     },
   },

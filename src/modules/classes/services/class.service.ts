@@ -3,11 +3,12 @@ import { apiGet, apiPost, apiUpdate } from "@/utils/api";
 import type { ClassObj } from "../store/class.types";
 
 export const createClass = async (data: ClassObj) => {
-  return apiPost("/api/admin/class/class-create", data);
+  console.log(data);
+  return apiPost("/api/classes", data);
 };
 
 export const getClassList = async () => {
-  return apiGet("/api/admin/class/class-list");
+  return apiGet("/api/classes");
 };
 
 export const updateClass = async (id: string, data: ClassObj) => {

@@ -86,7 +86,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     {
       id: 4,
       name: "Add Class",
-      link: "/admin/classes/class-create",
+      link: "/admin/classes/create",
       icon: <MdClass size={19} />,
     },
 
@@ -104,7 +104,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     {
       id: 6,
       name: "Add User",
-      link: "/admin/user/user-create",
+      link: "/admin/user/create",
       icon: <MdPersonAddAlt1 size={19} />,
     },
 
@@ -165,7 +165,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     {
       id: 13,
       name: "Add Transport",
-      link: "/admin/transport/create-transport",
+      link: "/admin/transport/create",
       icon: <MdEmojiTransportation size={20} />,
     },
 
@@ -183,7 +183,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     {
       id: 15,
       name: "Add Fee",
-      link: "/admin/fee/fee-create",
+      link: "/admin/fee/create",
       icon: <FaMoneyBillWave size={18} />,
     },
 

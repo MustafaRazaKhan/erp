@@ -3,21 +3,21 @@
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import {
-  handleChange,
   setLoading,
   setSuccess,
-  enquiryReset,
   setEnquiries,
+  handleChange,
+  enquiryReset,
 } from "../store/enquiry.slice";
 
 import { createEnquiry, getEnquiries } from "../services/enquiry.service";
 
-import type { EnquiryObj } from "../store/enquiry.types";
-import { showToastSuccess } from "@/utils/Toast";
 import { useState } from "react";
+import { showToastSuccess } from "@/utils/Toast";
 
 const useEnquiry = () => {
   const dispatch = useAppDispatch();
+  const [search, setSearch] = useState("");
 
   const {
     enquiryObj,
@@ -31,13 +31,12 @@ const useEnquiry = () => {
     hasPrevPage,
   } = useAppSelector((state: any) => state.enquiry);
 
-  const [search, setSearch] = useState("");
-
   const getAllEnquiries = async (page = 1, searchValue = search) => {
     try {
       dispatch(setLoading());
 
-      const response = await getEnquiries(page, 5, searchValue);
+      const response = await getEnquiries(page, 2, searchValue);
+      // console.log(response);
 
       dispatch(
         setEnquiries({
@@ -66,6 +65,29 @@ const useEnquiry = () => {
     getAllEnquiries(page, search);
   };
 
+  const onChange = (e: any) => {
+    const { name, value } = e.target;
+    dispatch(handleChange({ name, value }));
+  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      dispatch(setLoading());
+
+      const data: any = await createEnquiry(enquiryObj);
+
+      if (data.success) {
+        showToastSuccess(data.message);
+
+        dispatch(setSuccess());
+      }
+      dispatch(enquiryReset());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return {
     enquiryObj,
     enquiryList,
@@ -79,10 +101,12 @@ const useEnquiry = () => {
     hasPrevPage,
 
     search,
+    onChange,
 
     handleSearch,
     handlePageChange,
     getAllEnquiries,
+    handleSubmit,
   };
 };
 

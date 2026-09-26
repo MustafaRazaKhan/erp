@@ -13,49 +13,29 @@ const Button = ({
   disabled = false,
 }: ButtonProps) => {
   return (
-    <button
-      type={type}
-      disabled={disabled}
-      className="
-        group
-        inline-flex
-        w-full
-        items-center
-        justify-center
-        gap-3
-        rounded-xl
-        bg-[#1e3a5f]
-        px-6
-        py-3.5
-        text-sm
-        font-semibold
-        text-white
-        shadow-sm
-        transition-all
-        duration-300
-        hover:bg-[#16324f]
-        hover:shadow-md
-        focus:outline-none
-        focus:ring-2
-        focus:ring-blue-200
-        focus:ring-offset-2
-        disabled:cursor-not-allowed
-        disabled:opacity-60
-        sm:w-auto
-        mt-4
-      "
-    >
-      <span>{title}</span>
-
-      <FaArrowRight
-        size={12}
+    <div className="mt-6 flex justify-end">
+      <button
+        type={type}
+        disabled={disabled}
         className="
-          transition-transform
-          duration-300
-          group-hover:translate-x-1
+          inline-flex items-center justify-center gap-2
+          rounded-lg
+          bg-[#1e3a5f]
+          px-6 py-3
+          text-sm font-semibold text-white
+          shadow-sm
+          transition-all duration-200
+          hover:bg-[#162d4a]
+          hover:shadow-md
+          active:scale-[0.98]
+          disabled:cursor-not-allowed
+          disabled:opacity-50
         "
-      />
-    </button>
+      >
+        {title}
+        <FaArrowRight size={13} />
+      </button>
+    </div>
   );
 };
 

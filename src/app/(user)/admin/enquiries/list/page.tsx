@@ -1,18 +1,7 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 
-import {
-  FiSearch,
-  FiMoreVertical,
-  FiEye,
-  FiEdit2,
-  FiTrash2,
-  FiPhone,
-  FiMail,
-} from "react-icons/fi";
-
-import type { EnquiryObj } from "@/modules/enquiry/store/enquiry.types";
 import useEnquiry from "@/modules/enquiry/hooks/useEnquiry";
 import PageLayout from "@/components/layouts/PageLayout";
 import PageHeader from "@/components/common/PageHeader";
@@ -54,106 +43,37 @@ const EnquiryListPage = () => {
      STATE
   ============================================================ */
 
-  const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
   useEffect(() => {
     getAllEnquiries();
   }, []);
-
-  const [enquiries] = useState<EnquiryObj[]>([
-    {
-      _id: "1",
-      name: "Rahul Sharma",
-      email: "rahul@example.com",
-      phone: "+91 98765 43210",
-      subject: "Admission for Class 6",
-      message: "I would like to know about admission availability.",
-      comment: "Please contact me in the afternoon.",
-      status: "new",
-    },
-    {
-      _id: "2",
-      name: "Priya Verma",
-      email: "priya@example.com",
-      phone: "+91 98765 12345",
-      subject: "Admission for Class 3",
-      message: "Looking for admission information for my daughter.",
-      status: "contacted",
-    },
-    {
-      _id: "3",
-      name: "Aman Singh",
-      email: "aman@example.com",
-      phone: "+91 91234 56789",
-      subject: "Transport Enquiry",
-      message: "I want to know about the school bus routes.",
-      status: "new",
-    },
-    {
-      _id: "4",
-      name: "Neha Gupta",
-      email: "neha@example.com",
-      phone: "+91 99887 66554",
-      subject: "Fee Structure",
-      message: "Please share the fee structure for Class 5.",
-      status: "follow-up",
-    },
-    {
-      _id: "5",
-      name: "Vikas Kumar",
-      email: "vikas@example.com",
-      phone: "+91 90000 12345",
-      subject: "School Admission",
-      message: "Need information regarding admission procedure.",
-      status: "resolved",
-    },
-  ]);
-
-  /* ============================================================
-     FILTER
-  ============================================================ */
-
-  const filteredEnquiries = useMemo(() => {
-    return enquiries.filter((enquiry) => {
-      const searchValue = search.toLowerCase();
-
-      const matchesSearch =
-        enquiry.name.toLowerCase().includes(searchValue) ||
-        enquiry.email.toLowerCase().includes(searchValue) ||
-        enquiry.phone.toLowerCase().includes(searchValue) ||
-        enquiry.subject.toLowerCase().includes(searchValue);
-
-      const matchesStatus =
-        statusFilter === "all" ||
-        enquiry.status?.toLowerCase() === statusFilter;
-
-      return matchesSearch && matchesStatus;
-    });
-  }, [enquiries, search, statusFilter]);
 
   return (
     <PageLayout>
       <PageContent>
         <div className="flex">
           <PageHeader heading={heading} />
+
           {/* <PageBtn /> */}
         </div>
 
         {/* list card container */}
 
         <div className="mb-5 flex flex-wrap gap-3 ">
-          <ListCard title="Total Enquiries" value={enquiries.length} />
+          <ListCard title="Total Enquiries" value={enquiryList.length} />
 
           <ListCard
             title="New"
-            value={enquiries.filter((item) => item.status === "new").length}
+            value={
+              enquiryList.filter((item: any) => item.status === "new").length
+            }
             color="blue"
           />
 
           <ListCard
             title="Follow Up"
             value={
-              enquiries.filter((item) => item.status === "follow-up").length
+              enquiryList.filter((item: any) => item.status === "follow-up")
+                .length
             }
             color="amber"
           />
@@ -161,7 +81,8 @@ const EnquiryListPage = () => {
           <ListCard
             title="Resolved"
             value={
-              enquiries.filter((item) => item.status === "resolved").length
+              enquiryList.filter((item: any) => item.status === "resolved")
+                .length
             }
             color="green"
           />

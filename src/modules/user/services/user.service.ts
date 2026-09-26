@@ -5,15 +5,22 @@ import { apiGet, apiPost } from "@/utils/api";
 // -----------------------------------------
 
 export const createUser = async (data: any) => {
-  return apiPost("/api/admin/user/user-create", data);
+  console.log(data);
+  return apiPost("/api/user", data);
 };
 
 // -----------------------------------------
 // GET USER LIST
 // -----------------------------------------
 
-export const getUserList = async (page: number = 1) => {
-  return apiGet(`/api/admin/user/user-list?page=${page}&limit=10`);
+export const getUserList = async (
+  page: number,
+  limit: number,
+  search: string = "",
+) => {
+  return apiGet(
+    `/api/user?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`,
+  );
 };
 
 // -----------------------------------------

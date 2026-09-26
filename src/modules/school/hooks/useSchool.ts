@@ -18,8 +18,10 @@ import {
   deleteSchool,
 } from "../services/school.service";
 import { SchoolState } from "../store/school.types";
+import { useState } from "react";
 
 const useSchool = () => {
+  const [photo, setPhoto] = useState<File | null>(null);
   const dispatch = useAppDispatch();
 
   // -----------------------------------------
@@ -51,15 +53,9 @@ const useSchool = () => {
   // HANDLE FILE INPUT
   // -----------------------------------------
 
-  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = e.target;
-
-    dispatch(
-      handleFileChange({
-        name: name as keyof SchoolState["schoolObj"],
-        value: files?.[0] || null,
-      }),
-    );
+  const onFileChange = (e: any) => {
+    console.log(e.target.files[0]);
+    setPhoto(e.target.files?.[0] || null);
   };
 
   // -----------------------------------------
@@ -88,11 +84,12 @@ const useSchool = () => {
       // ADD IMAGE
       // -----------------------------------------
 
-      if (schoolObj.image) {
-        formData.append("image", schoolObj.image);
+      if (photo) {
+        formData.append("photo", photo);
       }
 
       const data = await createSchool(formData);
+      // console.log(schoolObj);
 
       if (data.success) {
         toast.success(data.message);
@@ -114,7 +111,7 @@ const useSchool = () => {
   // GET SCHOOL LIST
   // -----------------------------------------
 
-  const schoolListData = async () => {
+  const getAllSchools = async () => {
     try {
       dispatch(setLoading());
 
@@ -141,7 +138,7 @@ const useSchool = () => {
       toast.success("School deleted successfully.");
 
       // Refresh school list
-      await schoolListData();
+      await getAllSchools();
     } catch (error) {
       console.error("Delete school error:", error);
 
@@ -160,8 +157,9 @@ const useSchool = () => {
     onFileChange,
 
     handleSubmit,
-    schoolListData,
+    getAllSchools,
     handleDelete,
+    photo,
   };
 };
 

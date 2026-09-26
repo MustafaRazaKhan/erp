@@ -51,7 +51,7 @@ export default function Topbar() {
 
           {/* School / Application Information */}
           <div className="hidden min-w-0 leading-tight sm:block">
-            <p className="truncate text-sm font-bold tracking-tight text-slate-900">
+            <p className=" text-sm font-bold tracking-tight text-slate-900">
               Krishna Public School
             </p>
 

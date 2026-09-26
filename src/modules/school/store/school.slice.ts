@@ -10,7 +10,7 @@ const initialState: SchoolState = {
     contact: "",
     email: "",
     address: "",
-    image: null,
+    photo: null,
   },
 
   schoolList: [],
@@ -47,6 +47,7 @@ const schoolSlice = createSlice({
         value: File | null;
       }>,
     ) => {
+      // console.log(state);
       state.schoolObj[action.payload.name] = action.payload.value as never;
     },
 

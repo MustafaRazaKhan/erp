@@ -4,7 +4,7 @@ export type SchoolObj = {
   contact: string;
   email: string;
   address: string;
-  image: File | null;
+  photo: File | null;
 };
 
 export type SchoolState = {

@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import {
@@ -24,13 +26,24 @@ import type { UserState } from "../store/user.types";
 const useUser = () => {
   const dispatch = useAppDispatch();
 
+  const [search, setSearch] = useState("");
+
   // -----------------------------------------
   // GET USER STATE
   // -----------------------------------------
 
-  const { userObj, profileObj, userList, loading } = useAppSelector(
-    (state: any) => state.user,
-  );
+  const {
+    userObj,
+    profileObj,
+    userList,
+    loading,
+    totalUsers,
+    currentPage,
+    totalPages,
+    limit,
+    hasNextPage,
+    hasPrevPage,
+  } = useAppSelector((state: any) => state.user);
 
   // -----------------------------------------
   // HANDLE USER INPUT
@@ -59,20 +72,12 @@ const useUser = () => {
     e.preventDefault();
 
     try {
-      // -----------------------------------------
-      // VALIDATE ROLE
-      // -----------------------------------------
-
       if (userObj.role === "Select Role" || !userObj.role) {
         showToastError("Role is Required");
         return;
       }
 
       dispatch(setLoading());
-
-      // -----------------------------------------
-      // CREATE USER API
-      // -----------------------------------------
 
       const data: any = await createUser(userObj);
 
@@ -96,13 +101,18 @@ const useUser = () => {
   // GET USERS
   // -----------------------------------------
 
-  const userListData = async (page: number = 1) => {
+  const getAllUsers = async (page = 1, searchValue = search) => {
     try {
       dispatch(setLoading());
 
-      const data: any = await getUserList(page);
+      const response: any = await getUserList(page, 2, searchValue);
 
-      dispatch(setUsers(data.data));
+      dispatch(
+        setUsers({
+          data: response.data,
+          pagination: response.pagination,
+        }),
+      );
 
       dispatch(setSuccess());
     } catch (error) {
@@ -110,6 +120,26 @@ const useUser = () => {
 
       dispatch(setSuccess());
     }
+  };
+
+  // -----------------------------------------
+  // SEARCH USERS
+  // -----------------------------------------
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    setSearch(value);
+
+    getAllUsers(1, value);
+  };
+
+  // -----------------------------------------
+  // PAGINATION
+  // -----------------------------------------
+
+  const handlePageChange = (page: number) => {
+    getAllUsers(page, search);
   };
 
   // -----------------------------------------
@@ -123,8 +153,7 @@ const useUser = () => {
       if (data.success) {
         showToastSuccess(data.message);
 
-        // Refresh user list
-        await userListData();
+        await getAllUsers(currentPage, search);
       } else {
         showToastError(data.message);
       }
@@ -176,17 +205,40 @@ const useUser = () => {
   };
 
   return {
+    // User
     userObj,
-    profileObj,
     userList,
+
+    // Profile
+    profileObj,
+
+    // Loading
     loading,
 
+    // Pagination
+    totalUsers,
+    currentPage,
+    totalPages,
+    limit,
+    hasNextPage,
+    hasPrevPage,
+
+    // Search
+    search,
+
+    // User actions
     onChange,
     handleSubmit,
 
-    userListData,
+    // User list
+    getAllUsers,
+    handleSearch,
+    handlePageChange,
+
+    // User status
     handleUpdate,
 
+    // Profile
     onProfileChange,
     handleProfileSubmit,
   };

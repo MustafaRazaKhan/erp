@@ -1,7 +1,7 @@
 export type UserObj = {
   role: string;
-  name: string;
-  email: string;
+
+  identifier: string;
   phone: string;
   password: string;
 };
@@ -20,5 +20,11 @@ export type UserState = {
 
   profileObj: ProfileObj;
 
-  userList: any[];
+  userList: [];
+  totalUsers: number;
+  currentPage: number;
+  totalPages: number;
+  limit: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
 };

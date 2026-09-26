@@ -501,9 +501,9 @@ const EnquiryRow = ({ name, subject, time, status }: EnquiryRowProps) => {
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="truncate text-xs font-semibold text-slate-800">{name}</p>
+        <p className=" text-xs font-semibold text-slate-800">{name}</p>
 
-        <p className="mt-0.5 truncate text-[10px] text-slate-400">{subject}</p>
+        <p className="mt-0.5  text-[10px] text-slate-400">{subject}</p>
       </div>
 
       <div className="hidden text-right sm:block">
@@ -590,9 +590,7 @@ const Activity = ({ icon, text, time, type }: ActivityProps) => {
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="truncate text-[10px] font-medium text-slate-600">
-          {text}
-        </p>
+        <p className=" text-[10px] font-medium text-slate-600">{text}</p>
 
         <p className="mt-0.5 text-[9px] text-slate-400">{time}</p>
       </div>

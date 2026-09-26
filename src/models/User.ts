@@ -35,13 +35,23 @@ import mongoosePaginate from "mongoose-paginate-v2";
 
 const userSchema = new mongoose.Schema(
   {
-    name: String,
-    email: String,
-    password: String,
+    identifier: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+
+    password: {
+      type: String,
+      required: true,
+    },
+
     role: {
       type: String,
-      default: "student",
+      default: "user",
     },
+
     isActive: {
       type: Boolean,
       default: true,

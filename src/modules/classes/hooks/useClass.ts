@@ -10,6 +10,7 @@ import {
   setSuccess,
   setClassList,
   setStudentList,
+  resetClass,
 } from "../store/class.slice";
 
 import {
@@ -27,7 +28,7 @@ const useClass = () => {
   //   const { closeModal } = useModal();
 
   const { classObj, classList, studentList, loading } = useAppSelector(
-    (state: any) => state.class,
+    (state: any) => state.classes,
   );
 
   // ---------------------------------------------
@@ -63,8 +64,9 @@ const useClass = () => {
         toast.success(data.message);
 
         dispatch(setSuccess());
+        dispatch(resetClass());
 
-        await classListData();
+        await getAllClasses();
       }
     } catch (error) {
       console.error(error);
@@ -79,11 +81,12 @@ const useClass = () => {
   // GET CLASS LIST
   // ---------------------------------------------
 
-  const classListData = async () => {
+  const getAllClasses = async () => {
     try {
       dispatch(setLoading());
 
       const data: any = await getClassList();
+      // console.log(data);
 
       if (data.success) {
         dispatch(setClassList(data.data));
@@ -121,7 +124,7 @@ const useClass = () => {
 
         dispatch(setSuccess());
 
-        await classListData();
+        await getAllClasses();
       } else {
         dispatch(setSuccess());
 
@@ -168,7 +171,7 @@ const useClass = () => {
 
     handleClassChange,
     handleSubmit,
-    classListData,
+    getAllClasses,
     handleUpdate,
     viewStudentListClassWise,
   };
